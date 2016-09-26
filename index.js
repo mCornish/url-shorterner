@@ -34,14 +34,13 @@ app.listen(app.get('port'), () => {
 });
 
 function _isNatural(stamp) {
-    // Detect valid date. Idea from: http://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
-    const timestamp = Date.parse(stamp);
-    return !isNaN(timestamp);
+    const date = new Date(stamp);
+    return !isNaN(date.getMonth());
 }
 
 function _isUnix(stamp) {
-    const natural = timestamp.toDate(+stamp);
-    return natural instanceof Date;
+    const date = timestamp.toDate(+stamp);
+    return !isNaN(date.getMonth());
 }
 
 function _getNatural(unix) {
