@@ -3,10 +3,14 @@ const app = express();
 const path = require('path');
 const timestamp = require('unix-timestamp');
 
+const CSS_PATH = __dirname + '/src/main.css';
+const HTML_PATH = __dirname + '/src/index.html';
 app.set('port', process.env.PORT || 5000);
 
+app.use(express.static('src'));
+
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.sendFile(path.join(HTML_PATH));
 });
 
 app.get('/:stamp', (req, res) => {
