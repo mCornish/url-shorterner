@@ -7,9 +7,11 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "https://github.com/mCornish/header-parser",
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
+    "ip": "^1.1.3"
   }
 }

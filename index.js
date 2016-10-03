@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const timestamp = require('unix-timestamp');
 
 const CSS_PATH = __dirname + '/src/main.css';
 const HTML_PATH = __dirname + '/src/index.html';
@@ -13,22 +12,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(HTML_PATH));
 });
 
-app.get('/:stamp', (req, res) => {
-    const stamp = req.params.stamp;
+app.get('/api/whoami', (req, res) => {
+    const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress; // Recommended by http://stackoverflow.com/questions/10849687/express-js-how-to-get-remote-client-address
+    const userLang = req.headers['accept-language'].split(',')[0]; // Recommended by https://help.localizejs.com/docs/detecting-language-of-a-visitor?lang=en
+    const userSoft = req.headers['user-agent'].split('(')[1].split(')')[0];
     const result = {
-        "unix": null,
-        "natural": null
+        "ipaddress": userIp,
+        "language": userLang,
+        "software": userSoft
     };
-
-    if (_isNatural(stamp)) {
-        const natural = new Date(stamp);
-        result.natural = _formatDate(natural);
-        result.unix = _getUnix(natural);
-    } else if (_isUnix(stamp)) {
-        const unix = +stamp;
-        result.unix = unix;
-        result.natural = _formatDate(_getNatural(unix));
-    }
 
     res.json(result);
 });
@@ -36,26 +28,3 @@ app.get('/:stamp', (req, res) => {
 app.listen(app.get('port'), () => {
     console.log('Node app is running on port', app.get('port'));
 });
-
-function _isNatural(stamp) {
-    const date = new Date(stamp);
-    return !isNaN(date.getMonth());
-}
-
-function _isUnix(stamp) {
-    const date = timestamp.toDate(+stamp);
-    return !isNaN(date.getMonth());
-}
-
-function _getNatural(unix) {
-    return timestamp.toDate(unix);
-}
-
-function _getUnix(natural) {
-    return timestamp.fromDate(natural);
-}
-
-function _formatDate(date) {
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-}

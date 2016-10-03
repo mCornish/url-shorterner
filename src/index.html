@@ -1,19 +1,28 @@
 <html>
     <head>
-        <title>Timestamp Microservice</title>
+        <title>Header Parser</title>
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
         <main>
-            <h1>Timestamp Microservice</h1>
-            <p>Enter a unix timestamp or natural date as a parameter. You will recieve back a JSON object containing your timestamp in unix and natural form.</p>
-            <h2>Example usage:</h2>
-            <p><a href="https://mctimestamp.herokuapp.com/1450137600" target="_blank">https://mctimestamp.herokuapp.com/1450137600</a></p>
-            <p>OR</p>
-            <p><a href="https://mctimestamp.herokuapp.com/December%2015,%202015" target="_blank">https://mctimestamp.herokuapp.com/December%2015,%202015</a></p>
+            <h1>Header Parser</h1>
+            <p>Visit the endpoint <a href="/api/whoami">/api/whoami</a> to view information from your request header.</p>
             <h2>Example output:</h2>
-            <p>{"unix": 1450137600, "natural": "December 15, 2015"}</p>
+            <p>{"ipaddress":"192.0.2.1","language":"en-US","software":"Macintosh; Intel Mac OS X 10_12_1"}
         </main>
-        <footer>Created by <a href="http://mikecornish.net" target="_blank">Mike Cornish</a></footer>
+        <footer>
+            <a href="http://mikecornish.net" target="_blank">
+                <svg class="logo" width="100%" height="100%" viewBox="0 0 684 93" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+                        <g transform="matrix(1,0,0,1,-492.509,-567.147)">
+                                <g transform="matrix(7.80536,0,0,7.80536,-1912.68,-1248.06)">
+                                            <text x="326.024px" y="244.191px" style="font-family:'MerriweatherSans-Bold', 'Merriweather Sans';font-weight:700;font-size:12px;">m<tspan x="337.419px 340.686px 347.34px 353.712px 360.724px 367.753px 372.578px 379.9px 383.167px 388.708px " y="244.191px 244.191px 244.191px 244.191px 244.191px 244.191px 244.191px 244.191px 244.191px 244.191px ">ikeCornish</tspan></text>
+                                                    </g>
+                                                            <g transform="matrix(1,0,0,1,-154.796,303.859)">
+                                                                        <path d="M652.939,355.408C650.2,347.511 644.441,323.862 649.011,304.561C656.593,272.539 690.984,263.069 711.196,263.292C748.06,263.7 766.711,286.185 772.753,304.561C779.189,324.131 770.941,355.408 770.941,355.408L748.712,355.408L735.012,304.561L719.639,355.408L704.434,355.408L690.803,304.561L675.167,355.408C675.167,355.408 652.991,355.557 652.939,355.408Z"/>
+                                                                                </g>
+                                                                                    </g>
+                </svg>
+            </a>
+        </footer>
     </body>
 </html>
