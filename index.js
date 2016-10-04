@@ -5,7 +5,7 @@ const path = require('path');
 const Urls = require('./src/Urls');
 
 const MONGO_URL = process.env.MONGOLAB_URI;
-console.log(process.env;;
+console.log(process.env);
 const CSS_PATH = __dirname + '/src/main.css';
 const HTML_PATH = __dirname + '/src/index.html';
 
