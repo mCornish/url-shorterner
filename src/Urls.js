@@ -1,34 +1,33 @@
 const mongo = require('mongodb');
-const server = new mongo.Server('localhost', 27017, {auto_reconnect: true});
-const db = new mongo.Db('urlsdb', server);
+const MongoClient = mongo.MongoClient;
+// const server = new mongo.Server('localhost', 27017, {auto_reconnect: true});
+// const db = new mongo.Db('urlsdb', server);
+const MONGO_URL = process.env.MONGOLAB_URI;
 
 const populateDb = require('./populate-db');
 
 const BASE_URL = 'http://mc-short.herokuapp.com/';
 
-db.open((err, db) => {
-    if (!err) {
-        console.log('Connected to "urls" database.');
-        db.collection('urls', {strict: true}, (err, collection) => {
-            if (err) {
-                console.log('The "urls" collections doesn\'t exist. Creating it with sample data...');
-                populateDb(db);
-            }
-        });
-    }
-});
+// db.open((err, db) => {
+//     if (!err) {
+//         console.log('Connected to "urls" database.');
+//         db.collection('urls', {strict: true}, (err, collection) => {
+//             if (err) {
+//                 console.log('The "urls" collections doesn\'t exist. Creating it with sample data...');
+//                 populateDb(db);
+//             }
+//         });
+//     }
+// });
 
-exports.findOne = (req, res) => {
+exports.findOne = (db, req, res) => {
     const id = req.params.id;
     const url = BASE_URL + id;
     db.collection('urls', (err, collection) => {
         collection.findOne({'short_url': url}, (err, doc) => {
             if (!err && doc) {
-                const result = {
-                    "original_url": doc.original_url,
-                    "short_url": doc.short_url
-                };
-                res.json(result);
+                delete doc['_id'];
+                res.json(doc);
             } else {
                 res.json({'error': 'Unable to retrieve URL'})
             }
@@ -36,11 +35,12 @@ exports.findOne = (req, res) => {
     });
 }
 
-exports.addOne = (req, res) => {
-    const url = req.params.url;
+exports.addOne = (db, req, res) => {
+    const url = req.params[0];
     db.collection('urls', (err, collection) => {
         const newUrl = {
-            "original_url": url
+            "original_url": url,
+            "created_at": new Date() 
         }
         collection.insert(newUrl, {safe:true}, (err, result) => {
             if (!err) {
