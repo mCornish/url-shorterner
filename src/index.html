@@ -1,14 +1,16 @@
 <html>
     <head>
-        <title>Header Parser</title>
+        <title>URL Shortener</title>
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
         <main>
-            <h1>Header Parser</h1>
-            <p>Visit the endpoint <a href="/api/whoami">/api/whoami</a> to view information from your request header.</p>
+            <h1>URL Shortener</h1>
+            <p>Visit the endpoint <em>/new/[YOUR_URL_HERE]</em> to recieve a shortened url..</p>
+            <h2>Example input:</h2>
+            <p>https://mcshort.herokuapp.com/new/http://mikecornish.net</p>
             <h2>Example output:</h2>
-            <p>{"ipaddress":"192.0.2.1","language":"en-US","software":"Macintosh; Intel Mac OS X 10_12_1"}
+            <p>{"original_url":"mikecornish.net","short_url":"http://mc-short.herokuapp.com/5338200d"}</p>
         </main>
         <footer>
             <a href="http://mikecornish.net" target="_blank">

@@ -8,18 +8,6 @@ const populateDb = require('./populate-db');
 
 const BASE_URL = 'http://mc-short.herokuapp.com/';
 
-// db.open((err, db) => {
-//     if (!err) {
-//         console.log('Connected to "urls" database.');
-//         db.collection('urls', {strict: true}, (err, collection) => {
-//             if (err) {
-//                 console.log('The "urls" collections doesn\'t exist. Creating it with sample data...');
-//                 populateDb(db);
-//             }
-//         });
-//     }
-// });
-
 exports.findOne = (db, req, res) => {
     const id = req.params.id;
     const url = BASE_URL + id;
@@ -51,10 +39,7 @@ exports.addOne = (db, req, res) => {
                 collection.update({'_id': doc._id}, doc, {safe:true}, (err, result) => {
                     if (!err) {
                         console.log('Updated doc: ' + result);
-                        const response = {
-                            "original_url": doc.original_url,
-                            "short_url": doc.short_url
-                        }
+                        delete doc['_id'];
                         res.json(response);
                     } else {
                         console.log('ERROR:', err);
