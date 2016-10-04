@@ -1,5 +1,5 @@
 {
-  "name": "url-shortener",
+  "name": "mc-url-shortener",
   "version": "1.0.0",
   "description": "A url shortener",
   "main": "index.js",
